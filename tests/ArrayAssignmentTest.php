@@ -69,7 +69,7 @@ class ArrayAssignmentTest extends TestCase
     public function providerFileCheckerValidCodeParse()
     {
         return [
-            'genericArrayCreation' => [
+            'genericArrayCreationWithInt' => [
                 '<?php
                     $out = [];
 
@@ -471,6 +471,15 @@ class ArrayAssignmentTest extends TestCase
                     $foo += ["b" => [2, 3]];',
                 'assertions' => [
                     '$foo' => 'array{a:int, b:array<int, int>}',
+                ],
+            ],
+            'nestedObjectLikeArrayAddition' => [
+                '<?php
+                    $foo = [];
+                    $foo["root"]["a"] = 1;
+                    $foo["root"] += ["b" => [2, 3]];',
+                'assertions' => [
+                    '$foo' => 'array{root:array{a:int, b:array<int, int>}}',
                 ],
             ],
         ];

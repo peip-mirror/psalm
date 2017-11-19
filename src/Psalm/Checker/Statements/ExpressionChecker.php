@@ -1348,6 +1348,15 @@ class ExpressionChecker
                             $result_type = Type::combineUnionTypes($result_type_member, $result_type);
                         }
 
+                        if ($left instanceof PhpParser\Node\Expr\ArrayDimFetch) {
+                            AssignmentChecker::updateArrayType(
+                                $statements_source,
+                                $left,
+                                $result_type,
+                                $context
+                            );
+                        }
+
                         continue;
                     }
 
